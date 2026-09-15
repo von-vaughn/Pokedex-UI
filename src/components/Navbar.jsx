@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { ChevronDown, Home, Search, X } from "lucide-react";
 import { NavLink } from "react-router";
 import { PokeballIcon } from "./pokemonIcons";
 import { usePokedex } from "../context/usePokedex";
@@ -22,21 +23,7 @@ export const Navbar = () => {
       to: "/",
       end: true,
       label: "Home",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z" />
-          <path d="M9 21V12h6v9" />
-        </svg>
-      ),
+      icon: <Home size={16} strokeWidth={2.2} />,
     },
     {
       to: "/pokemons",
@@ -91,19 +78,7 @@ export const Navbar = () => {
 
         <div className="navbar-right">
           <div className="search-input-wrapper">
-            <svg
-              className="search-icon"
-              viewBox="0 0 24 24"
-              width="15"
-              height="15"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <line x1="16.5" y1="16.5" x2="22" y2="22" />
-            </svg>
+            <Search className="search-icon" size={15} strokeWidth={2.2} />
             <input
               type="text"
               value={search}
@@ -118,7 +93,7 @@ export const Navbar = () => {
                 onClick={() => setSearch("")}
                 title="Clear search"
               >
-                ✕
+                <X size={12} strokeWidth={2.5} />
               </button>
             )}
           </div>
@@ -137,19 +112,11 @@ export const Navbar = () => {
                   className="trainer-avatar-img"
                 />
               </div>
-              <svg
+              <ChevronDown
+                size={13}
+                strokeWidth={2.5}
                 className={`dropdown-caret ${userMenuOpen ? "open" : ""}`}
-                viewBox="0 0 24 24"
-                width="13"
-                height="13"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
+              />
             </button>
 
             {userMenuOpen && (

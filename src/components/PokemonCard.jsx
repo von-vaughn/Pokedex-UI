@@ -1,13 +1,18 @@
 import React from "react";
 import { getTypeInfo, PokeballIcon } from "./pokemonIcons";
 
-export const PokemonCard = ({ poke }) => {
+export const PokemonCard = ({ poke, index = 0 }) => {
   const paddedId = String(poke.id).padStart(3, "0");
   const primaryType = poke.types[0] || "normal";
   const primaryTypeInfo = getTypeInfo(primaryType);
 
   return (
-    <div className="pokemon-card">
+    <div
+      className="pokemon-card card-fade-in"
+      style={{
+        animationDelay: `${index * 70}ms`,
+      }}
+    >
       {/* Outer corner rivets/screws */}
       <div className="card-corner-rivet top-left"></div>
       <div className="card-corner-rivet top-right"></div>
@@ -109,14 +114,6 @@ export const PokemonCard = ({ poke }) => {
                   </div>
                 );
               })}
-            </div>
-          </div>
-
-          <div className="card-bottom-id-badge">
-            <div className="hud-bracket-lines"></div>
-            <div className="hud-badge-content">
-              <PokeballIcon size={16} className="hud-badge-icon" />
-              <span className="hud-badge-number">No. {paddedId}</span>
             </div>
           </div>
         </div>

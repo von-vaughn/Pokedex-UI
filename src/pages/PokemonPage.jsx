@@ -1,3 +1,4 @@
+import { LoaderCircle } from "lucide-react";
 import { PokemonCard } from "../components/PokemonCard";
 import { PokeballIcon } from "../components/pokemonIcons";
 import { usePokedex } from "../context/usePokedex";
@@ -16,7 +17,7 @@ const PokemonPage = () => {
     return (
       <div className="status-display loading-state">
         <div className="pokeball-spinner">
-          <PokeballIcon size={48} />
+          <LoaderCircle size={48} strokeWidth={2.4} className="spinner-icon" />
         </div>
         <h2>ACCESSING POKÉDEX DATABASE...</h2>
         <p>Retrieving Pokémon records from Kanto region</p>
@@ -36,8 +37,8 @@ const PokemonPage = () => {
   if (filteredPokemon.length > 0) {
     return (
       <div className="Pokemons">
-        {filteredPokemon.map((poke) => (
-          <PokemonCard key={poke.name} poke={poke} />
+        {filteredPokemon.map((poke, index) => (
+          <PokemonCard key={poke.name} poke={poke} index={index} />
         ))}
       </div>
     );

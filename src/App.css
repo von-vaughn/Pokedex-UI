@@ -383,9 +383,26 @@
 
 .Pokemons {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 32px 24px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 36px 28px;
   justify-items: center;
+}
+
+.card-fade-in {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: cardFadeIn 0.42s ease forwards;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* ============================================================
@@ -395,8 +412,8 @@
   width: 100%;
   background-color: #f4f6fa;
   background-image:
-    linear-gradient(rgba(17, 24, 39, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 24, 39, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(17, 24, 39, 0.12) 1px, transparent 10px),
+    linear-gradient(90deg, rgba(17, 24, 39, 0.12) 1px, transparent 10px);
   background-size: 28px 28px;
   background-position: center center;
   min-height: 100dvh;
@@ -739,6 +756,8 @@
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  height: 390px;
+  width: 290px;
 }
 
 /* ------------------------------------------------------------
@@ -934,6 +953,7 @@
   align-items: stretch;
   overflow: hidden;
   margin-bottom: 9px;
+  min-height: 32px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
@@ -952,6 +972,7 @@
   justify-content: center;
   flex-shrink: 0;
   min-width: 90px;
+  min-height: 32px;
 }
 
 .ribbon-specs {
@@ -962,12 +983,14 @@
   padding: 4px 6px;
   font-family: var(--font-body);
   gap: 6px;
+  min-height: 32px;
 }
 
 .spec-group {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  line-height: 1;
 }
 
 .spec-label {
@@ -975,12 +998,14 @@
   font-weight: 800;
   color: #4b5563;
   letter-spacing: 0.5px;
+  line-height: 1;
 }
 
 .spec-value {
   font-size: 0.78rem;
   font-weight: 800;
   color: #111827;
+  line-height: 1;
 }
 
 .spec-separator {
@@ -993,9 +1018,9 @@
    BOTTOM TECH PANEL (/ TYPES & NO. BADGE)
    ------------------------------------------------------------ */
 .card-bottom-panel {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
   gap: 8px;
   padding: 2px 2px 0;
 }
@@ -1004,6 +1029,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-height: 0;
 }
 
 .panel-section-title {
@@ -1026,6 +1052,7 @@
 .card-type-pills {
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
   gap: 5px;
 }
 
@@ -1033,6 +1060,7 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  min-height: 32px;
   padding: 3px 8px;
   border: 2.5px solid #111827;
   border-radius: 7px;
@@ -1058,10 +1086,13 @@
 /* Bottom Right Angled HUD ID Badge */
 .card-bottom-id-badge {
   position: relative;
-  padding: 3px 6px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-end;
+  min-height: 32px;
+  height: 100%;
+  padding: 3px 6px;
+  align-self: stretch;
 }
 
 .hud-bracket-lines {
@@ -1079,7 +1110,10 @@
 .hud-badge-content {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
+  min-height: 32px;
+  height: 100%;
   padding: 2px 4px;
 }
 
@@ -1090,6 +1124,9 @@
 }
 
 .hud-badge-number {
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 1;
   font-family: var(--font-tech);
   font-weight: 800;
   font-size: 0.78rem;

@@ -22,9 +22,11 @@ export const PokedexProvider = ({ children }) => {
             return {
               ...poke,
               id,
-              height: (height / 10).toFixed(1),
-              weight: (weight / 10).toFixed(1),
-              types: types.map((typeInfo) => typeInfo.type.name),
+              height: height != null ? (height / 10).toFixed(1) : "0.0",
+              weight: weight != null ? (weight / 10).toFixed(1) : "0.0",
+              types: Array.isArray(types)
+                ? types.map((typeInfo) => typeInfo.type.name)
+                : [],
             };
           }),
         );

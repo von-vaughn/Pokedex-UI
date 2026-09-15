@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router";
 
 export const HomePage = () => {
@@ -96,7 +97,9 @@ export const HomePage = () => {
                   </svg>
                 </span>
                 <span className="cta-label">START EXPLORING</span>
-                <span className="cta-arrow">→</span>
+                <span className="cta-arrow">
+                  <ArrowRight size={18} strokeWidth={2.5} />
+                </span>
               </button>
             </div>
           </div>
