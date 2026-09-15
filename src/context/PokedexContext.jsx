@@ -1,0 +1,51 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { PokedexContext } from "./PokedexContextValue";
+
+export const PokedexProvider = ({ children }) => {
+  const [pokemon, setPokemon] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchPokemon() {
+      try {
+        const response = await axios.get(
+          "https://pokeapi.co/api/v2/pokemon?limit=151",
+        );
+        const detailedPokemon = await Promise.all(
+          response.data.results.map(async (poke) => {
+            const detailResponse = await axios.get(poke.url);
+            const { id, height, weight, types } = detailResponse.data;
+
+            return {
+              ...poke,
+              id,
+              height: (height / 10).toFixed(1),
+              weight: (weight / 10).toFixed(1),
+              types: types.map((typeInfo) => typeInfo.type.name),
+            };
+          }),
+        );
+
+        setPokemon(detailedPokemon);
+      } catch (fetchError) {
+        console.error(fetchError);
+        setError("Unable to load Pokémon right now.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPokemon();
+  }, []);
+
+  return (
+    <PokedexContext.Provider
+      value={{ pokemon, search, setSearch, loading, error }}
+    >
+      {children}
+    </PokedexContext.Provider>
+  );
+};
