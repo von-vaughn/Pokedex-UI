@@ -419,6 +419,24 @@
   min-height: 100dvh;
   display: flex;
   align-items: stretch;
+  animation: homeContentFadeIn 0.7s ease-out both;
+}
+
+@keyframes homeContentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-container {
+    animation: none;
+  }
 }
 
 .home-hero-card {
