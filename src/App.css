@@ -388,6 +388,115 @@
   justify-items: center;
 }
 
+.pokemon-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.pokemon-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.pokemon-filter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.68);
+  font-family: var(--font-tech);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.pokemon-type-filter {
+  min-width: 150px;
+  padding: 9px 32px 9px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(22, 24, 31, 0.9);
+  color: #ffffff;
+  cursor: var(--app-cursor), pointer;
+  font-family: var(--font-tech);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.pokemon-type-filter:focus {
+  outline: 2px solid rgba(234, 56, 56, 0.65);
+  outline-offset: 2px;
+}
+
+.pokemon-type-filter option {
+  background: #16181f;
+  color: #ffffff;
+}
+
+.pokemon-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.pagination-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  cursor: var(--app-cursor), pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background: rgba(234, 56, 56, 0.8);
+  border-color: rgba(234, 56, 56, 0.9);
+}
+
+.pagination-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagination-page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
+  cursor: var(--app-cursor), pointer;
+  font-family: var(--font-tech);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.pagination-page:hover,
+.pagination-page.active {
+  background: #ea3838;
+  border-color: #ea3838;
+  color: #ffffff;
+}
+
 .card-fade-in {
   opacity: 0;
   transform: translateY(12px);
@@ -997,36 +1106,43 @@
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 4px 6px;
+  justify-content: flex-start;
+  padding: 4px;
   font-family: var(--font-body);
-  gap: 6px;
+  gap: 4px;
   min-height: 32px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .spec-group {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  flex-shrink: 0;
+  gap: 2px;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .spec-label {
-  font-size: 0.68rem;
+  font-size: 0.58rem;
   font-weight: 800;
   color: #4b5563;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.2px;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .spec-value {
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   font-weight: 800;
   color: #111827;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .spec-separator {
+  flex-shrink: 0;
   color: #9ca3af;
   font-weight: 300;
   font-size: 0.85rem;

@@ -107,7 +107,7 @@ export const Navbar = () => {
             >
               <div className="trainer-avatar-circle">
                 <img
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+                  src="/pfp.jpeg"
                   alt="Trainer"
                   className="trainer-avatar-img"
                 />
@@ -122,18 +122,18 @@ export const Navbar = () => {
             {userMenuOpen && (
               <div className="trainer-dropdown-menu">
                 <div className="dropdown-header">
-                  <span className="trainer-name">Vaughn Evangelista</span>
-                  <span className="trainer-rank">Developer</span>
+                  <span className="trainer-name">Vaughn M. Evangelista</span>
+                  <span className="trainer-rank">Created by</span>
                 </div>
                 <div className="dropdown-divider"></div>
                 <div className="dropdown-stats">
                   <div className="stat-row">
-                    <span>Badges</span>
-                    <strong>8 / 8</strong>
+                    <span>BSCS</span>
+                    <strong>Student</strong>
                   </div>
                   <div className="stat-row">
                     <span>Pokédex</span>
-                    <strong>151 / 151</strong>
+                    <strong>WMSU</strong>
                   </div>
                 </div>
               </div>
