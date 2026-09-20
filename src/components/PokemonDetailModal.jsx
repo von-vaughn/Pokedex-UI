@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import {
   X,
   ChevronUp,
@@ -19,10 +18,8 @@ import {
   formatName,
   formatHeight,
   formatWeight,
-  fetchPokemonSpecies,
-  fetchEvolutionChain,
-  fetchAbilityInfo,
 } from "../utils/pokemonDetails";
+import { usePokemonDetailData } from "../hooks/usePokemonDetailData";
 
 const STAT_CONFIG = [
   {
@@ -70,16 +67,9 @@ export const PokemonDetailModal = ({
   allPokemon = [],
 }) => {
   const [activeTab, setActiveTab] = useState("STATS");
-  const [fetchedDetails, setFetchedDetails] = useState(null);
-  const [speciesData, setSpeciesData] = useState(null);
-  const [evolutionStages, setEvolutionStages] = useState([]);
-  const [abilityDescriptions, setAbilityDescriptions] = useState({});
   const modalContentRef = useRef(null);
-
-  const activePokemon =
-    fetchedDetails && fetchedDetails.id === pokemon?.id
-      ? fetchedDetails
-      : pokemon;
+  const { activePokemon, speciesData, evolutionStages, abilityDescriptions } =
+    usePokemonDetailData(pokemon);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -98,133 +88,6 @@ export const PokemonDetailModal = ({
       document.body.style.overflow = "unset";
     };
   }, []);
-
-  useEffect(() => {
-    let isMounted = true;
-    if (!pokemon || !pokemon.id) return;
-
-    const ensureFullPokemonData = async () => {
-      const needsFetch =
-        !pokemon.stats ||
-        pokemon.stats.length === 0 ||
-        !pokemon.moves ||
-        pokemon.moves.length === 0 ||
-        !pokemon.abilities ||
-        pokemon.abilities.length === 0;
-
-      if (!needsFetch) return;
-
-      try {
-        const response = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`,
-        );
-
-        if (!isMounted) return;
-
-        const {
-          id,
-          height,
-          weight,
-          types,
-          stats,
-          abilities,
-          moves,
-          cries,
-          species,
-          base_experience,
-        } = response.data;
-
-        setFetchedDetails({
-          id,
-          name: pokemon.name,
-          height: height != null ? (height / 10).toFixed(1) : "0.0",
-          weight: weight != null ? (weight / 10).toFixed(1) : "0.0",
-          types: Array.isArray(types)
-            ? types.map((type) => type.type.name)
-            : pokemon.types || [],
-          stats: stats || [],
-          abilities: abilities || [],
-          moves: moves || [],
-          cries: cries || null,
-          speciesUrl: species?.url || null,
-          baseExperience: base_experience || null,
-        });
-      } catch (error) {
-        console.error("Error fetching Pokémon details from PokéAPI:", error);
-      }
-    };
-
-    ensureFullPokemonData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [
-    pokemon?.id,
-    pokemon?.stats,
-    pokemon?.moves,
-    pokemon?.abilities,
-    pokemon?.types,
-  ]);
-
-  useEffect(() => {
-    let isMounted = true;
-    if (!activePokemon?.id) return;
-
-    const loadData = async () => {
-      try {
-        const species = await fetchPokemonSpecies(activePokemon.id);
-        if (!isMounted) return;
-
-        setSpeciesData(species);
-
-        if (species?.evolutionChainUrl) {
-          const stages = await fetchEvolutionChain(species.evolutionChainUrl);
-          if (isMounted) setEvolutionStages(stages);
-        } else if (isMounted) {
-          setEvolutionStages([
-            { id: activePokemon.id, name: activePokemon.name, trigger: "" },
-          ]);
-        }
-      } catch (error) {
-        console.error("Error loading Pokémon detail data:", error);
-      }
-    };
-
-    loadData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [activePokemon?.id]);
-
-  useEffect(() => {
-    let isMounted = true;
-    if (!activePokemon?.abilities || activePokemon.abilities.length === 0)
-      return;
-
-    const loadAbilities = async () => {
-      const descMap = {};
-      await Promise.all(
-        activePokemon.abilities.map(async (item) => {
-          const rawName = (item.ability?.name || item.name || "").toLowerCase();
-          const url = item.ability?.url;
-          const description = await fetchAbilityInfo(url || rawName);
-          descMap[rawName] = description;
-        }),
-      );
-
-      if (isMounted) {
-        setAbilityDescriptions(descMap);
-      }
-    };
-
-    loadAbilities();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [activePokemon]);
 
   if (!pokemon) return null;
   if (!activePokemon) return null;

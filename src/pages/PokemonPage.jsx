@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -7,40 +6,20 @@ import {
 } from "lucide-react";
 import { PokemonCard } from "../components/PokemonCard";
 import { usePokedex } from "../context/usePokedex";
+import { usePokemonList } from "../hooks/usePokemonList";
 
 const PokemonPage = () => {
+  const { pokemon, search, loading, error, setSelectedPokemon } = usePokedex();
   const {
-    pokemon,
-    search,
-    loading,
-    error,
-    setSelectedPokemon,
-  } = usePokedex();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedType, setSelectedType] = useState("all");
-  const itemsPerPage = 32;
-  const query = search.trim().toLowerCase();
-  const availableTypes = [
-    ...new Set(pokemon.flatMap((poke) => poke.types)),
-  ].sort();
-  const filteredPokemon = pokemon.filter(
-    (poke) =>
-      (poke.name.toLowerCase().includes(query) ||
-        String(poke.id).includes(query) ||
-        poke.types.some((t) => t.toLowerCase().includes(query))) &&
-      (selectedType === "all" || poke.types.includes(selectedType)),
-  );
-  const totalPages = Math.ceil(filteredPokemon.length / itemsPerPage);
-  const activePage = Math.min(currentPage, totalPages);
-  const pageStart = (activePage - 1) * itemsPerPage;
-  const visiblePokemon = filteredPokemon.slice(
-    pageStart,
-    pageStart + itemsPerPage,
-  );
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+    availableTypes,
+    filteredPokemon,
+    visiblePokemon,
+    currentPage: activePage,
+    totalPages,
+    selectedType,
+    changeType,
+    changePage: handlePageChange,
+  } = usePokemonList(pokemon, search);
   const filterControls = (
     <div className="pokemon-filter-bar">
       <label className="pokemon-filter-label" htmlFor="pokemon-type-filter">
@@ -52,8 +31,7 @@ const PokemonPage = () => {
         className="pokemon-type-filter"
         value={selectedType}
         onChange={(event) => {
-          setSelectedType(event.target.value);
-          setCurrentPage(1);
+          changeType(event.target.value);
         }}
       >
         <option value="all">ALL TYPES</option>
