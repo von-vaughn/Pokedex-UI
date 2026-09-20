@@ -17,7 +17,18 @@ export const PokedexProvider = ({ children }) => {
         const detailedPokemon = await Promise.all(
           response.data.results.map(async (poke) => {
             const detailResponse = await axios.get(poke.url);
-            const { id, height, weight, types } = detailResponse.data;
+            const {
+              id,
+              height,
+              weight,
+              types,
+              stats,
+              abilities,
+              moves,
+              cries,
+              species,
+              base_experience,
+            } = detailResponse.data;
 
             return {
               ...poke,
@@ -27,6 +38,12 @@ export const PokedexProvider = ({ children }) => {
               types: Array.isArray(types)
                 ? types.map((typeInfo) => typeInfo.type.name)
                 : [],
+              stats: Array.isArray(stats) ? stats : [],
+              abilities: Array.isArray(abilities) ? abilities : [],
+              moves: Array.isArray(moves) ? moves : [],
+              cries: cries || null,
+              speciesUrl: species?.url || null,
+              baseExperience: base_experience || null,
             };
           }),
         );

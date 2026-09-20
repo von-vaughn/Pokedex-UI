@@ -1,7 +1,7 @@
 import React from "react";
 import { getTypeInfo, PokeballIcon } from "./pokemonIcons";
 
-export const PokemonCard = ({ poke, index = 0 }) => {
+export const PokemonCard = ({ poke, index = 0, onClick }) => {
   const paddedId = String(poke.id).padStart(3, "0");
   const primaryType = poke.types[0] || "normal";
   const primaryTypeInfo = getTypeInfo(primaryType);
@@ -11,17 +11,28 @@ export const PokemonCard = ({ poke, index = 0 }) => {
       className="pokemon-card card-fade-in"
       style={{
         animationDelay: `${index * 70}ms`,
+        cursor: "pointer",
       }}
+      onClick={() => onClick?.(poke)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick?.(poke);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${poke.name}`}
     >
-      {/* Outer corner rivets/screws */}
+      {}
       <div className="card-corner-rivet top-left"></div>
       <div className="card-corner-rivet top-right"></div>
       <div className="card-corner-rivet bottom-left"></div>
       <div className="card-corner-rivet bottom-right"></div>
 
-      {/* Main Inner Card Frame */}
+      {}
       <div className="card-inner">
-        {/* Header Bar */}
+        {}
         <div className="card-header">
           <div className="card-id-pill">
             <PokeballIcon size={14} className="card-id-icon" />
@@ -39,19 +50,19 @@ export const PokemonCard = ({ poke, index = 0 }) => {
           </div>
         </div>
 
-        {/* Pokemon Stage / Screen Box */}
+        {}
         <div className="card-screen-wrapper">
           <div className="card-screen-frame">
-            {/* Tech HUD Corner Reticle */}
+            {}
             <div className="screen-hud-corner">
               <span className="hud-bar red-bar"></span>
               <span className="hud-bar dark-bar"></span>
             </div>
 
-            {/* Stage Pedestal Grid / Glow */}
+            {}
             <div className="screen-pedestal"></div>
 
-            {/* Pokemon Artwork */}
+            {}
             <div className="screen-image-container">
               <img
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${poke.id}.png`}
@@ -65,14 +76,14 @@ export const PokemonCard = ({ poke, index = 0 }) => {
               />
             </div>
 
-            {/* Bottom-right watermark emblem */}
+            {}
             <div className="screen-watermark">
               <PokeballIcon size={30} className="screen-watermark-icon" />
             </div>
           </div>
         </div>
 
-        {/* Middle Specs Ribbon */}
+        {}
         <div className="card-ribbon">
           <div className="ribbon-type-banner">
             <span>{primaryType.toUpperCase()}</span>
@@ -91,7 +102,7 @@ export const PokemonCard = ({ poke, index = 0 }) => {
           </div>
         </div>
 
-        {/* Bottom Tech Panel */}
+        {}
         <div className="card-bottom-panel">
           <div className="card-types-block">
             <div className="panel-section-title">

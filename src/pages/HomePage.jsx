@@ -19,9 +19,9 @@ export const HomePage = () => {
   return (
     <section className="home-hero-container">
       <div className="home-hero-card">
-        {/* Main Content Split: Left Info, Right Artwork */}
+        {}
         <div className="hero-grid">
-          {/* Left Column */}
+          {}
           <div className="hero-left-content">
             <h1 className="hero-main-title">
               <span className="title-row-top">
@@ -31,23 +31,23 @@ export const HomePage = () => {
               <span className="title-row-bottom">
                 <span className="title-pokeball">
                   <svg viewBox="0 0 100 100" width="100%" height="100%">
-                    {/* Top Red Half */}
+                    {}
                     <path
                       d="M 50,4 A 46,46 0 0,1 96,50 L 68,50 A 18,18 0 0,0 32,50 L 4,50 A 46,46 0 0,1 50,4 Z"
                       fill="#ea3838"
                       stroke="#111827"
                       strokeWidth="6"
                     />
-                    {/* Bottom White Half */}
+                    {}
                     <path
                       d="M 50,96 A 46,46 0 0,1 4,50 L 32,50 A 18,18 0 0,0 68,50 L 96,50 A 46,46 0 0,1 50,96 Z"
                       fill="#ffffff"
                       stroke="#111827"
                       strokeWidth="6"
                     />
-                    {/* Outer Black Center Ring */}
+                    {}
                     <circle cx="50" cy="50" r="16" fill="#111827" />
-                    {/* Inner White Button */}
+                    {}
                     <circle
                       cx="50"
                       cy="50"
@@ -104,9 +104,9 @@ export const HomePage = () => {
             </div>
           </div>
 
-          {/* Right Column: Charizard & Holographic Radar */}
+          {}
           <div className="hero-right-visual">
-            {/* Holographic Concentric Rings / Radar */}
+            {}
             <div className="hologram-radar-rings">
               <div className="radar-ring ring-outer-cyan"></div>
               <div className="radar-ring ring-red-dashes"></div>
@@ -114,7 +114,7 @@ export const HomePage = () => {
               <div className="radar-center-glow"></div>
             </div>
 
-            {/* Charizard Image */}
+            {}
             <div className="charizard-artwork-wrapper">
               <img
                 src={
