@@ -2,10 +2,13 @@ import { Navigate, Route, Routes, useLocation } from "react-router";
 import { Navbar } from "./components/Navbar";
 import { HomePage } from "./pages/HomePage";
 import PokemonPage from "./pages/PokemonPage";
+import { PokemonDetailModal } from "./components/PokemonDetailModal";
+import { usePokedex } from "./context/usePokedex";
 import "./App.css";
 
 const App = () => {
   const location = useLocation();
+  const { pokemon, selectedPokemon, setSelectedPokemon } = usePokedex();
 
   const isHome = location.pathname === "/";
 
@@ -19,6 +22,15 @@ const App = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+
+      {selectedPokemon && (
+        <PokemonDetailModal
+          pokemon={selectedPokemon}
+          onClose={() => setSelectedPokemon(null)}
+          onSelectPokemon={setSelectedPokemon}
+          allPokemon={pokemon}
+        />
+      )}
     </div>
   );
 };

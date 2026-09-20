@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import {
   X,
@@ -19,7 +19,6 @@ import {
   formatName,
   formatHeight,
   formatWeight,
-  calculateGenderRatio,
   fetchPokemonSpecies,
   fetchEvolutionChain,
   fetchAbilityInfo,
@@ -233,8 +232,6 @@ export const PokemonDetailModal = ({
   const paddedId = String(activePokemon.id).padStart(3, "0");
   const heightInfo = formatHeight(activePokemon?.height ?? pokemon?.height);
   const weightInfo = formatWeight(activePokemon?.weight ?? pokemon?.weight);
-  const genderRatio = speciesData?.genderRatio ?? calculateGenderRatio(1);
-
   const abilities = (activePokemon.abilities || []).map((item) => {
     const name = item.ability?.name || item.name || "";
     return formatName(name);
@@ -271,23 +268,11 @@ export const PokemonDetailModal = ({
     };
   });
 
-  const baseStats = useMemo(() => {
-    const statMap = {};
-    const stats = activePokemon?.stats || pokemon?.stats || [];
-
-    stats.forEach((stat) => {
-      statMap[stat.stat?.name] = stat.base_stat;
-    });
-
-    return statMap;
-  }, [activePokemon?.stats, pokemon?.stats]);
-
-  const totalBaseStat = useMemo(() => {
-    return STAT_CONFIG.reduce(
-      (acc, stat) => acc + (baseStats[stat.key] || 0),
-      0,
-    );
-  }, [baseStats]);
+  const baseStats = {};
+  const stats = activePokemon?.stats || pokemon?.stats || [];
+  stats.forEach((stat) => {
+    baseStats[stat.stat?.name] = stat.base_stat;
+  });
 
   const evolutionList =
     evolutionStages.length > 0

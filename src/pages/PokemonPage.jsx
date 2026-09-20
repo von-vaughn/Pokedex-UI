@@ -6,14 +6,18 @@ import {
   LoaderCircle,
 } from "lucide-react";
 import { PokemonCard } from "../components/PokemonCard";
-import { PokemonDetailModal } from "../components/PokemonDetailModal";
 import { usePokedex } from "../context/usePokedex";
 
 const PokemonPage = () => {
-  const { pokemon, search, loading, error } = usePokedex();
+  const {
+    pokemon,
+    search,
+    loading,
+    error,
+    setSelectedPokemon,
+  } = usePokedex();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedType, setSelectedType] = useState("all");
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
   const itemsPerPage = 32;
   const query = search.trim().toLowerCase();
   const availableTypes = [
@@ -97,15 +101,6 @@ const PokemonPage = () => {
             />
           ))}
         </div>
-
-        {selectedPokemon && (
-          <PokemonDetailModal
-            pokemon={selectedPokemon}
-            onClose={() => setSelectedPokemon(null)}
-            onSelectPokemon={setSelectedPokemon}
-            allPokemon={pokemon}
-          />
-        )}
 
         {totalPages > 1 && (
           <nav className="pokemon-pagination" aria-label="Pokémon pages">

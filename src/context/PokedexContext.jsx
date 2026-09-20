@@ -7,6 +7,7 @@ export const PokedexProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
 
   useEffect(() => {
     async function fetchPokemon() {
@@ -62,7 +63,15 @@ export const PokedexProvider = ({ children }) => {
 
   return (
     <PokedexContext.Provider
-      value={{ pokemon, search, setSearch, loading, error }}
+      value={{
+        pokemon,
+        search,
+        setSearch,
+        loading,
+        error,
+        selectedPokemon,
+        setSelectedPokemon,
+      }}
     >
       {children}
     </PokedexContext.Provider>

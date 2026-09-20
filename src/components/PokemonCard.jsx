@@ -1,4 +1,3 @@
-import React from "react";
 import { getTypeInfo, PokeballIcon } from "./pokemonIcons";
 
 export const PokemonCard = ({ poke, index = 0, onClick }) => {
