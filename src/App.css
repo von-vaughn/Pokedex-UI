@@ -27,6 +27,10 @@
   top: 0;
 }
 
+.pokedex-app--home .home-hero-container {
+  padding-top: 58px;
+}
+
 
 .pokedex-navbar {
   pointer-events: all;
@@ -784,6 +788,7 @@
   position: relative;
   z-index: 3;
   width: 100%;
+  min-width: 0;
   max-width: 1280px;
   min-height: 100%;
   margin: 0 auto;
@@ -796,6 +801,7 @@
 
 
 .hero-left-content {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -812,7 +818,7 @@
 .title-row-top,
 .title-pokedex-text {
   font-family: var(--font-body);
-  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-size: clamp(3rem, 5.5vw, 5rem);
   font-weight: 900;
   letter-spacing: -0.06em;
   color: #111827;
@@ -856,7 +862,7 @@
 
 .hero-description {
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
   color: #374151;
   line-height: 1.7;
   max-width: 380px;
@@ -935,6 +941,7 @@
 
 .hero-right-visual {
   position: relative;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -998,18 +1005,57 @@
 }
 
 .charizard-artwork-img {
-  width: clamp(360px, 44vw, 640px);
+  width: min(100%, 640px);
   height: auto;
   object-fit: contain;
-  filter:
-    drop-shadow(-10px 8px 20px rgba(234, 56, 56, 0.35))
-    drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
+
   animation: charizardFloat 4s ease-in-out infinite;
 }
 
 @keyframes charizardFloat {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-14px); }
+}
+
+@media (min-width: 901px) {
+  .hero-grid {
+    max-width: 1440px;
+    padding: 72px 64px 72px 96px;
+    gap: 48px;
+  }
+
+  .title-row-top,
+  .title-pokedex-text {
+    font-size: clamp(3.5rem, 6vw, 6rem);
+  }
+
+  .title-pokeball {
+    width: clamp(60px, 7vw, 96px);
+    height: clamp(60px, 7vw, 96px);
+  }
+
+  .hero-left-content {
+    gap: 32px;
+  }
+
+  .hero-description {
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
+    max-width: 460px;
+  }
+
+  .hero-cta-button {
+    padding: 16px 32px;
+    font-size: 1.15rem;
+  }
+
+  .cta-icon-pokeball {
+    width: 38px;
+    height: 38px;
+  }
+
+  .charizard-artwork-img {
+    width: min(100%, 720px);
+  }
 }
 
 
@@ -1020,6 +1066,7 @@
     text-align: center;
   }
 
+  .title-row-top,
   .title-row-bottom {
     justify-content: center;
   }
@@ -1039,6 +1086,25 @@
 
   .charizard-artwork-img {
     width: clamp(260px, 65vw, 460px);
+  }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .hero-grid {
+    padding: 56px 40px;
+  }
+
+  .title-row-top,
+  .title-pokedex-text {
+    font-size: clamp(3.5rem, 7vw, 5.5rem);
+  }
+
+  .hero-description {
+    font-size: clamp(1.2rem, 2.4vw, 1.35rem);
+  }
+
+  .charizard-artwork-img {
+    width: min(78vw, 560px);
   }
 }
 
@@ -1531,6 +1597,10 @@
 
 
 @media (max-width: 860px) {
+  .pokedex-app--home .home-hero-container {
+    padding-top: 112px;
+  }
+
   .pokedex-navbar-container {
     padding: 0;
   }
@@ -1552,7 +1622,7 @@
   }
 
   .navbar-brand {
-    justify-content: center;
+    display: none;
   }
 
   .navbar-links {
